@@ -22,7 +22,10 @@ end
 
 get '/search' do
   q, s = params['q'], params['s']
-  File.read(idx_hash_path(q))
+  rst = DB['select * from documents where MATCH (content) AGAINST (?)', q].take(100).map do |row|
+    {title: row[:title]}
+  end
+  rst.to_json
 end
 
 get '/rebuild' do
