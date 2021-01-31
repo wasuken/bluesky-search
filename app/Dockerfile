@@ -1,14 +1,19 @@
 FROM ruby:latest
 
-RUN apt-get update \
-	&& apt-get install -y mysql-client libmysqlclient-dev --no-install-recommends \
-	&& apt-get clean \
-	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get update && \
+    apt-get install -y default-mysql-client \
+    --no-install-recommends && \
+    rm -rf /var/lib/apt/lists/*
+
 
 WORKDIR /src
 
-RUN bundle conifg set path 'bundle/vendor'
-
+RUN bundle config set path 'bundle/vendor'
+ADD Gemfile Gemfile
+RUN bundle config --local build.mysql2 "--with-ldflags=-L/usr/local/opt/openssl/lib --with-cppflags=-I/usr/local/opt/openssl/include"
+RUN gem install mysql2 -v '0.5.3' --source 'https://rubygems.org/'
 RUN bundle install
+ADD srv.rb srv.rb
 
-RUN bundle exec ruby srv.rb
+ENTRYPOINT bundle exec ruby srv.rb -o 0.0.0.0 > log
+

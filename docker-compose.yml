@@ -1,21 +1,30 @@
-version '3.8'
+version: '3.3'
 
 services:
   db:
-    image: mysql:latest
+    image: mysql:5.7
     container_name: db
     environment:
       MYSQL_ROOT_PASSWORD: test
-      MYSQL_DATABASE: bluesky
       TZ: 'Asia/Tokyo'
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
       - ./init.d:/docker-entrypoint-initdb.d
+      - ./my.cnf:/etc/mysql/conf.d/my.cnf
     ports:
       - 3306:3306
+    networks:
+      - application
   app:
-    build: ./app/
+    build: ./app
     container_name: app
+    ports:
+      - 4567:4567
     volumes:
-      - ./app:/src
       - ./aozorabunko:/aozorabunko
+    networks:
+      - application
+
+networks:
+  application:
+    driver: bridge
