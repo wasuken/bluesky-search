@@ -5,6 +5,10 @@ RUN apt-get update \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN mkdir /src
-
 WORKDIR /src
+
+RUN bundle conifg set path 'bundle/vendor'
+
+RUN bundle install
+
+RUN bundle exec ruby srv.rb

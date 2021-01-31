@@ -7,7 +7,7 @@ gem "sinatra"
 gem "nokogiri"
 gem "puma"
 
-gem 'rom-repository'
-gem 'rom-sql'
+
 gem 'mysql2'
+gem 'sequel'
 # gem "rails"
