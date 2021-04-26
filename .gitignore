@@ -4,3 +4,4 @@ bundle/
 *.log
 *.out
 log
+*.env

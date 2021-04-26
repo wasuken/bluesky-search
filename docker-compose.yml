@@ -2,24 +2,25 @@ version: '3.3'
 
 services:
   db:
-    image: mysql:5.7
+    build: ./db
     container_name: db
     environment:
       MYSQL_ROOT_PASSWORD: test
       TZ: 'Asia/Tokyo'
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
       - ./init.d:/docker-entrypoint-initdb.d
       - ./my.cnf:/etc/mysql/conf.d/my.cnf
     ports:
-      - 3306:3306
+      - 4406:3306
     networks:
       - application
   app:
     build: ./app
     container_name: app
+    env_file:
+      - ./.env
     ports:
-      - 4567:4567
+      - 3000:4567
     volumes:
       - ./aozorabunko:/aozorabunko
     networks:

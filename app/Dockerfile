@@ -15,5 +15,7 @@ RUN gem install mysql2 -v '0.5.3' --source 'https://rubygems.org/'
 RUN bundle install
 ADD srv.rb srv.rb
 
-ENTRYPOINT bundle exec ruby srv.rb -o 0.0.0.0 > log
+COPY wait.sh wait.sh
+RUN chmod +x wait.sh
 
+ENTRYPOINT ./wait.sh
