@@ -16,7 +16,13 @@ end
 INDEX_DIR = './index/'
 AOZORA_DIR = '/aozorabunko/cards/**/files/'
 
-DB = Sequel.connect(adapter: 'mysql2', host: 'db', database: 'bluesky', user: 'root', password: 'test', encoding: 'utf8')
+DB = Sequel.mysql2(
+  host: ENV['DB_HOST'],
+  user: ENV['DB_USER'],
+  password: ENV['DB_PASS'],
+  database: ENV['DB_NAME'],
+  encoding: 'utf8'
+)
 
 def insert(params)
   DB.transaction do

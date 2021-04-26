@@ -13,7 +13,6 @@ ADD Gemfile Gemfile
 RUN bundle config --local build.mysql2 "--with-ldflags=-L/usr/local/opt/openssl/lib --with-cppflags=-I/usr/local/opt/openssl/include"
 RUN gem install mysql2 -v '0.5.3' --source 'https://rubygems.org/'
 RUN bundle install
-ADD srv.rb srv.rb
 
 COPY wait.sh wait.sh
 RUN chmod +x wait.sh
