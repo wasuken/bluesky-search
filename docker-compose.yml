@@ -25,6 +25,7 @@ services:
       - 3000:4567
     volumes:
       - ./aozorabunko:/aozorabunko
+      - ./app:/app
     networks:
       - application
 
