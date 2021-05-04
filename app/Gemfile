@@ -9,6 +9,7 @@ gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'nokogiri'
 gem 'puma'
+gem 'haml'
 
 gem 'mysql2'
 gem 'sequel'

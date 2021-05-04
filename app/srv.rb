@@ -4,6 +4,7 @@ require 'json'
 require 'nokogiri'
 require 'sequel'
 require 'mysql2'
+require 'haml'
 
 require 'benchmark'
 
@@ -67,20 +68,31 @@ def rebuild(ptn)
   end
 end
 
-get '/search' do
+get '/api/v1/search' do
   q, s = params['q'], params['s']
   rst = DB['select * from documents where MATCH (content) AGAINST (?)', q].take(100).map do |row|
     {
+      id: row[:id],
       filepath: row[:filepath],
       title: row[:title],
       parts_of_content: row[:content][0..100]
     }
   end
   content_type :json
-  {q: q, data: rst}.to_json
+  {q: q, articles: rst}.to_json
 end
 
-get '/rebuild' do
+get '/api/v1/file' do
+  content_type :json
+  row = DB[:documents].first(id: params['id'])
+  {
+    id: row[:id],
+    title: row[:title],
+    content: row[:content]
+  }.to_json
+end
+
+get '/api/v1/rebuild/full' do
   content_type :json
   total = rebuild('[1-8]5*')
   {
@@ -88,4 +100,18 @@ get '/rebuild' do
     items: total,
   }.to_json
 end
-rebuild('*')
+
+get '/api/v1/rebuild' do
+  content_type :json
+  total = rebuild('[1-8]5*')
+  {
+    msg: 'success',
+    items: total,
+  }.to_json
+end
+
+get '/' do
+  haml :index
+end
+
+# rebuild('*')

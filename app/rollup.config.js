@@ -2,6 +2,8 @@ import svelte from "rollup-plugin-svelte";
 import resolve from "@rollup/plugin-node-resolve";
 import replace from 'rollup-plugin-replace';
 import dotenv from 'dotenv';
+import css from 'rollup-plugin-css-only';
+
 dotenv.config();
 
 export default {
@@ -16,6 +18,7 @@ export default {
       HOST: process.env.HOST
     }),
     svelte({
+	  emitCss: false,
       include: "src/**/*.svelte",
     }),
     resolve({browser: true}),

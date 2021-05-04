@@ -13,7 +13,7 @@ done
 cd /app
 
 yarn install
-yarn run dev
+yarn run build
 
 # bundle config --local build.mysql2 "--with-ldflags=-L/usr/local/opt/openssl/lib --with-cppflags=-I/usr/local/opt/openssl/include"
 # gem install mysql2 -v '0.5.3' --source 'https://rubygems.org/'

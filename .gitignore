@@ -6,3 +6,4 @@ bundle/
 log
 *.env
 node_modules/
+app/public/js/*.bundle.js

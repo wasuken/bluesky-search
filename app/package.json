@@ -11,12 +11,13 @@
   "keywords": [],
   "dependencies": {
     "dotenv": "^8.2.0",
+    "rollup-plugin-css-only": "^3.1.0",
     "svelte": "^3.37.0"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^11.2.1",
     "rollup": "^2.44.0",
-    "rollup-plugin-svelte": "^7.1.0",
-    "rollup-plugin-replace": "^2.2.0"
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-svelte": "^7.1.0"
   }
 }
